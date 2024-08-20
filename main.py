@@ -815,6 +815,7 @@ for i in range(1, 26):
 ### converting to string for ease of use
 for i in range(1,26):
     dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
+    dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
 
 ### Doing everything at once
 for key, data in dataframe.groupby(['file_id']):

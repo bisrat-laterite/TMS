@@ -1,4 +1,4 @@
-name: Google Sheets Telegram Automation
+name: TMS deploy
 
 on:
   schedule:

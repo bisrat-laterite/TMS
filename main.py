@@ -32,6 +32,7 @@ for i in range(1, 26):
 
 for i in range(1, 26):
     dataframe.loc[(dataframe[f'step_min_{i}'] < 0) | (dataframe[f'step_sec_{i}'] < 0), f'duration_seconds_{i}'] = -99
+    dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
 
 ### creating a lookup dictionary
 dict_={1: 'A',
@@ -814,8 +815,9 @@ for i in range(1, 26):
 
 ### converting to string for ease of use
 for i in range(1,26):
-    dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
+    dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
+    
 
 ### Doing everything at once
 for key, data in dataframe.groupby(['file_id']):

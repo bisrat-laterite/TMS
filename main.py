@@ -825,18 +825,18 @@ for key, data in dataframe.groupby(['file_id']):
     sheet_name=key[0]
 
     ### Creating a dataframe for the duration variable
-    df_long_duraton1 = pd.melt(data, id_vars=['KEY'], value_vars=[f"duration_seconds_{i}" for i in range(1,30)], var_name='Which', value_name='Steps')
+    df_long_duraton1 = pd.melt(data, id_vars=['KEY'], value_vars=[f"duration_seconds_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
     df_long_duraton1['x']=df_long_duraton1['Which'].apply(lambda x:x.split('_')[2])
     # df_long_duraton1.to_excel("aa.xlsx")
 
 
     ### creating a dataframe for the steps info
-    df_long_duraton2 = pd.melt(data, id_vars=['KEY'], value_vars=[f"step_notes_{i}" for i in range(1,30)], var_name='Which', value_name='Steps')
+    df_long_duraton2 = pd.melt(data, id_vars=['KEY'], value_vars=[f"step_notes_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
     df_long_duraton2['x']=df_long_duraton2['Which'].apply(lambda x:x.split('_')[2])
     # df_long_duraton2.to_excel("bb.xlsx")
 
     ### comment section
-    df_long_duraton3 = pd.melt(data, id_vars=['KEY'], value_vars=[f"Office_comment_{i}" for i in range(1,30)], var_name='Which', value_name='Steps')
+    df_long_duraton3 = pd.melt(data, id_vars=['KEY'], value_vars=[f"Office_comment_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
     df_long_duraton3['x']=df_long_duraton2['Which'].apply(lambda x:x.split('_')[2])
     # df_long_duraton3.to_excel("cc.xlsx")
     # $break

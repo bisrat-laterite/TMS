@@ -24,13 +24,13 @@ dataframe = pd.DataFrame(_all)
 dataframe['file_id'].replace("1_dars_ASAYITA", "1_dars_ADDIS", inplace=True)
 
 ### aligning the duration variables creating a seconds overall variable
-for i in range(1, 30):
+for i in range(1, 32):
     print(i)
     dataframe[f'step_min_{i}']=pd.to_numeric(dataframe[f'step_min_{i}'])
     dataframe[f'step_sec_{i}']=pd.to_numeric(dataframe[f'step_sec_{i}'])
     dataframe[f'duration_seconds_{i}']=(dataframe[f'step_min_{i}']*60)+dataframe[f'step_sec_{i}']
 
-for i in range(1, 30):
+for i in range(1, 32):
     dataframe.loc[(dataframe[f'step_min_{i}'] < 0) | (dataframe[f'step_sec_{i}'] < 0), f'duration_seconds_{i}'] = -99
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
 
@@ -745,7 +745,7 @@ for key, data in dataframe.groupby(['file_id']):
     # if sheet_name=="3_abyssinia_ADDIS":
     #     continue
     ### Reshaping to long
-    df_long_duraton = pd.melt(data, id_vars=['KEY'], value_vars=[f"duration_seconds_{i}" for i in range(1,30)], var_name='Which', value_name='Steps')
+    df_long_duraton = pd.melt(data, id_vars=['KEY'], value_vars=[f"duration_seconds_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
     ### Reshaping to wide
     dfwide_dur=df_long_duraton.pivot(index='Which', columns='KEY', values='Steps')
     dfwide_dur['which']=dfwide_dur.index
@@ -802,7 +802,7 @@ dataframe['file_id'].replace("1_dars_ASAYITA", "1_dars_ADDIS", inplace=True)
 
 
 ### aligning the duration variables creating a seconds overall variable
-for i in range(1, 30):
+for i in range(1, 32):
     print(i)
     dataframe[f'step_min_{i}']=pd.to_numeric(dataframe[f'step_min_{i}'])
     dataframe[f'step_sec_{i}']=pd.to_numeric(dataframe[f'step_sec_{i}'])
@@ -810,11 +810,11 @@ for i in range(1, 30):
     # dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
     dataframe[f'Office_comment_{i}']="-"
 
-for i in range(1, 30):
+for i in range(1, 32):
     dataframe.loc[(dataframe[f'step_min_{i}'] < 0) | (dataframe[f'step_sec_{i}'] < 0), f'duration_seconds_{i}'] = -99
 
 ### converting to string for ease of use
-for i in range(1,30):
+for i in range(1,32):
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
     dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
     

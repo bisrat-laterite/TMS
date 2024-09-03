@@ -24,13 +24,13 @@ dataframe = pd.DataFrame(_all)
 dataframe['file_id'].replace("1_dars_ASAYITA", "1_dars_ADDIS", inplace=True)
 
 ### aligning the duration variables creating a seconds overall variable
-for i in range(1, 32):
+for i in range(1, 35):
     print(i)
     dataframe[f'step_min_{i}']=pd.to_numeric(dataframe[f'step_min_{i}'])
     dataframe[f'step_sec_{i}']=pd.to_numeric(dataframe[f'step_sec_{i}'])
     dataframe[f'duration_seconds_{i}']=(dataframe[f'step_min_{i}']*60)+dataframe[f'step_sec_{i}']
 
-for i in range(1, 32):
+for i in range(1, 35):
     dataframe.loc[(dataframe[f'step_min_{i}'] < 0) | (dataframe[f'step_sec_{i}'] < 0), f'duration_seconds_{i}'] = -99
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
 
@@ -802,7 +802,7 @@ dataframe['file_id'].replace("1_dars_ASAYITA", "1_dars_ADDIS", inplace=True)
 
 
 ### aligning the duration variables creating a seconds overall variable
-for i in range(1, 32):
+for i in range(1, 35):
     print(i)
     dataframe[f'step_min_{i}']=pd.to_numeric(dataframe[f'step_min_{i}'])
     dataframe[f'step_sec_{i}']=pd.to_numeric(dataframe[f'step_sec_{i}'])
@@ -810,11 +810,11 @@ for i in range(1, 32):
     # dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
     dataframe[f'Office_comment_{i}']="-"
 
-for i in range(1, 32):
+for i in range(1, 35):
     dataframe.loc[(dataframe[f'step_min_{i}'] < 0) | (dataframe[f'step_sec_{i}'] < 0), f'duration_seconds_{i}'] = -99
 
 ### converting to string for ease of use
-for i in range(1,32):
+for i in range(1,35):
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
     dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
     
@@ -825,18 +825,18 @@ for key, data in dataframe.groupby(['file_id']):
     sheet_name=key[0]
 
     ### Creating a dataframe for the duration variable
-    df_long_duraton1 = pd.melt(data, id_vars=['KEY'], value_vars=[f"duration_seconds_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
+    df_long_duraton1 = pd.melt(data, id_vars=['KEY'], value_vars=[f"duration_seconds_{i}" for i in range(1,35)], var_name='Which', value_name='Steps')
     df_long_duraton1['x']=df_long_duraton1['Which'].apply(lambda x:x.split('_')[2])
     # df_long_duraton1.to_excel("aa.xlsx")
 
 
     ### creating a dataframe for the steps info
-    df_long_duraton2 = pd.melt(data, id_vars=['KEY'], value_vars=[f"step_notes_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
+    df_long_duraton2 = pd.melt(data, id_vars=['KEY'], value_vars=[f"step_notes_{i}" for i in range(1,35)], var_name='Which', value_name='Steps')
     df_long_duraton2['x']=df_long_duraton2['Which'].apply(lambda x:x.split('_')[2])
     # df_long_duraton2.to_excel("bb.xlsx")
 
     ### comment section
-    df_long_duraton3 = pd.melt(data, id_vars=['KEY'], value_vars=[f"Office_comment_{i}" for i in range(1,32)], var_name='Which', value_name='Steps')
+    df_long_duraton3 = pd.melt(data, id_vars=['KEY'], value_vars=[f"Office_comment_{i}" for i in range(1,35)], var_name='Which', value_name='Steps')
     df_long_duraton3['x']=df_long_duraton2['Which'].apply(lambda x:x.split('_')[2])
     # df_long_duraton3.to_excel("cc.xlsx")
     # $break

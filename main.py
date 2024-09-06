@@ -910,6 +910,8 @@ for key, data in dataframe.groupby(['file_id']):
     sheet.update(range_, data)
     # break
 
+for i in range(1, 35):
+    dataframe.loc[(dataframe[f'step_resources_{i}'] =="1 2 2005") , f'step_resources_{i}'] = "1 2 2005"
 
 ### Doing everything at once for materials other
 for key, data in dataframe.groupby(['file_id']):

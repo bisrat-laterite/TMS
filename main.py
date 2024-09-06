@@ -816,7 +816,6 @@ for i in range(1, 35):
 cols=list(dataframe.columns)
 for i in range(1,35):
     if f"step_materials_text_{i}" not in cols:
-        # gen
         dataframe[f"step_materials_text_{i}"]="None"
 
 ### converting to string for ease of use

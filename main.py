@@ -15,11 +15,11 @@ key_='1cYuT8eiCIxdMkK_OD4BYqkqklLo5K3HTEgNYUxmP5Cw'
 ### Reading in the specific googles sheets file
 sh=gc.open_by_key(key_)
 
-# _all=sh.worksheet('Data').get_all_records()
-_all=sh.worksheet('Data').get_all_values()
+_all=sh.worksheet('Data').get_all_records()
+# _all=sh.worksheet('Data').get_all_values()
 
 # working on the gsheets returned
-dataframe = pd.DataFrame(_all[1:], columns=_all[0])
+dataframe = pd.DataFrame(_all)
 
 ### Corrections
 dataframe['file_id'].replace("1_dars_ASAYITA", "1_dars_ADDIS", inplace=True)
@@ -813,6 +813,11 @@ for i in range(1, 35):
 
 for i in range(1, 35):
     dataframe.loc[(dataframe[f'step_min_{i}'] < 0) | (dataframe[f'step_sec_{i}'] < 0), f'duration_seconds_{i}'] = -99
+cols=list(dataframe.columns)
+for i in range(1,35):
+    if f"step_materials_text_{i}" not in cols:
+        # gen
+        dataframe[f"step_materials_text_{i}"]="None"
 
 ### converting to string for ease of use
 for i in range(1,35):

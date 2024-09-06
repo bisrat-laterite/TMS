@@ -15,10 +15,11 @@ key_='1cYuT8eiCIxdMkK_OD4BYqkqklLo5K3HTEgNYUxmP5Cw'
 ### Reading in the specific googles sheets file
 sh=gc.open_by_key(key_)
 
-_all=sh.worksheet('Data').get_all_records()
+# _all=sh.worksheet('Data').get_all_records()
+_all=sh.worksheet('Data').get_all_values()
 
 # working on the gsheets returned
-dataframe = pd.DataFrame(_all)
+dataframe = pd.DataFrame(_all[1:], columns=_all[0])
 
 ### Corrections
 dataframe['file_id'].replace("1_dars_ASAYITA", "1_dars_ADDIS", inplace=True)

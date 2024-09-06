@@ -911,7 +911,7 @@ for key, data in dataframe.groupby(['file_id']):
     # break
 
 for i in range(1, 35):
-    dataframe.loc[(dataframe[f'step_resources_{i}'] =="1 2 2005") , f'step_resources_{i}'] = "1 2 2005"
+    dataframe.loc[(dataframe[f'step_resources_{i}'] =="1 2 2005") , f'step_resources_{i}'] = "1 2 5"
 
 ### Doing everything at once for materials other
 for key, data in dataframe.groupby(['file_id']):

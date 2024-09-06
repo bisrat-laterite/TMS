@@ -816,6 +816,8 @@ for i in range(1, 35):
 ### converting to string for ease of use
 for i in range(1,35):
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
+    dataframe[f'step_materials_text_{i}'] = dataframe[f'step_materials_text_{i}'].astype(str)
+    dataframe[f'step_materials_text_{i}']=dataframe[f'step_materials_text_{i}'].fillna("None")
     dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
     
 
@@ -945,6 +947,52 @@ for key, data in dataframe.groupby(['file_id']):
     end_cell_column=num_cols +5
     row_key=dict_[end_cell_column]
     end_cell_row=60 + num_rows
+    end_cell=row_key+str(end_cell_row)
+    print(end_cell)
+    # break
+    # end_cell = chr(ord('A') + num_cols - 1) + str(2 + num_rows - 1)
+    range_ = f"{start_cell}:{end_cell}"
+
+    ### converting the data to a list of list
+    # Convert DataFrame to list of lists
+    data = [dfwide_dur.columns.tolist()]+dfwide_dur.values.tolist()
+
+    ### updating the dataframe
+    sheet=sh
+    sheet=sh.worksheet(sheet_name)
+    
+    sheet.update(range_, data)
+
+
+### Doing everything at once for materials other
+for key, data in dataframe.groupby(['file_id']):
+    print(key[0])
+    sheet_name=key[0]
+    # if sheet_name=="3_abyssinia_ADDIS":
+    #     continue
+    ### Reshaping to long
+    df_long_duraton = pd.melt(data, id_vars=['KEY'], value_vars=[f"step_materials_text_{i}" for i in range(1,35)], var_name='Which', value_name='Steps')
+    ### Reshaping to wide
+    dfwide_dur=df_long_duraton.pivot(index='Which', columns='KEY', values='Steps')
+    dfwide_dur['which']=dfwide_dur.index
+    #### sorting values
+    dfwide_dur['step']=dfwide_dur['which'].apply(lambda x:x.split('_')[2])
+    dfwide_dur['step']=pd.to_numeric(dfwide_dur['step'])
+    dfwide_dur.sort_values(by='step', inplace=True)
+
+    dfwide_dur.drop(columns=['step'], inplace=True)
+    col = dfwide_dur.pop('which')
+    dfwide_dur.insert(0, 'Step', col)
+
+    # Get the number of rows and columns in the DataFrame
+    num_rows, num_cols = dfwide_dur.shape
+
+    # For example, updating from cell A2 (row 2, column 1)
+    start_cell = 'F120'
+    # Construct the range string
+    end_cell_column=num_cols +5
+    row_key=dict_[end_cell_column]
+    end_cell_row=120 + num_rows
     end_cell=row_key+str(end_cell_row)
     print(end_cell)
     # break

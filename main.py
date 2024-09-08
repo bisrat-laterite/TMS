@@ -821,7 +821,7 @@ for i in range(1, 35):
 ### converting to string for ease of use
 for i in range(1,35):
     dataframe[f'duration_seconds_{i}']=dataframe[f'duration_seconds_{i}'].fillna(-1)
-    dataframe[f'step_materials_text_{i}'] = dataframe[f'step_materials_text_{i}'].astype(str)
+    # dataframe[f'step_materials_text_{i}'] = dataframe[f'step_materials_text_{i}'].astype(str)
     # dataframe[f'step_materials_text_{i}']=dataframe[f'step_materials_text_{i}'].fillna("None")
     dataframe[f'duration_seconds_{i}'] = dataframe[f'duration_seconds_{i}'].astype(str)
     

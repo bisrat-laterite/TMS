@@ -930,6 +930,9 @@ for key, data in dataframe.groupby(['file_id']):
     # if sheet_name=="3_abyssinia_ADDIS":
     #     continue
     ### Reshaping to long
+    for var in ['step_materials_text_1', 'step_materials_text_31', 'step_materials_text_32', 'step_materials_text_34']:
+        if var not in data.columns:
+            data[var]=""
     df_long_duraton = pd.melt(data, id_vars=['KEY'], value_vars=[f"step_materials_text_{i}" for i in range(1,35)], var_name='Which', value_name='Steps')
     ### Reshaping to wide
     dfwide_dur=df_long_duraton.pivot(index='Which', columns='KEY', values='Steps')
